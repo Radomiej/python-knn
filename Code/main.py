@@ -1,8 +1,8 @@
-import numpy
 import argparse
 import random
 from Code.records import *
-from Code.distance import *
+from Code.knn import *
+
 
 default_setting = {
     "k": 5,
@@ -100,11 +100,16 @@ def setup_train_sets(records):
     return train_sets
 
 
+
+
+
 def main():
     parse_arguments()
     records = parse_csv(default_setting["file"])
     parse_records(records)
-    train_sets = setup_train_sets(records)
+    data_sets = setup_train_sets(records)
+    knn = Knn(data_sets, records, default_setting["k"])
+    knn.test()
     print('records count: ' + str(len(records.raw_rows)) + ' row length: ' + str(records.column_numbers))
 
 
