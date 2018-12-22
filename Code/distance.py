@@ -6,9 +6,9 @@ def distance_euclidean(a, b):
     return dist
 
 
-def distance_manhattan(x, y):
-    n = len(x)
-    return distancesum(x, n) + distancesum(y, n)
+def distance_manhattan(a, b):
+    n = len(a)
+    return distancesum(a, n) + distancesum(b, n)
 
 
 def distancesum(arr, n):
@@ -24,3 +24,13 @@ def distancesum(arr, n):
         sum += arr[i]
 
     return res
+
+
+class EuclideanDistanceCalculator:
+    def calculate_distance(self, a, b):
+        return distance_euclidean(a, b)
+
+
+class ManhattanDistanceCalculator:
+    def calculate_distance(self, a, b):
+        return distance_euclidean(a, b)

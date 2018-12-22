@@ -13,13 +13,16 @@ class Knn:
     data_sets = []
     records = None
     neighbours_number = 5
+    distance_calculator = None
 
-    def __init__(self, data_sets, records, neighbours_number):
+    def __init__(self, data_sets, records, neighbours_number, distance_calculator):
+        self.distance_calculator = distance_calculator
         self.neighbours_number = neighbours_number
         self.data_sets = data_sets
         self.records = records
 
     def test(self):
+        valid_test = 0
         for test_index in self.data_sets[1]:
             real_answer = self.records.keys[test_index]
             answers = self.find_answers(test_index)
@@ -31,7 +34,15 @@ class Knn:
                     answer_dict[answer] = 1
 
             best_answer = self.look_for_best_answer(answer_dict)
-            print('find: ' + best_answer + ' real: ' + real_answer)
+            if best_answer == real_answer:
+                valid_test = valid_test + 1
+            print('| ' + best_answer + ' | ' + real_answer + " |")
+            # print('find: ' + best_answer + ' real: ' + real_answer)
+        accuracy = float(valid_test) / len(self.data_sets[1]) * 100
+        wrong = len(self.data_sets[1]) - valid_test
+        print('-------------------------------------------------------------')
+        print('| Teaching set: ' + str(len(self.data_sets[0])) + ' | Training set: ' + str(len(self.data_sets[1])) + " |")
+        print('| OK: ' + str(valid_test) + ' | Fail: ' + str(wrong) + ' | accuracy: ' + str(accuracy) + ' % |')
 
 
 
@@ -55,7 +66,8 @@ class Knn:
         for neighboard_index in neighboards_list:
             neighboard = self.records.rows[neighboard_index]
             neighboard_position = get_position(neighboard)
-            distance_current = distance_euclidean(question_position, neighboard_position)
+            # distance_current = distance_euclidean(question_position, neighboard_position)
+            distance_current = self.distance_calculator.calculate_distance(question_position, neighboard_position)
             if distance_current < nearest_distance:
                 nearest_distance = distance_current
                 nearest_neighboard = list_index

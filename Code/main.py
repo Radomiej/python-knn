@@ -61,13 +61,14 @@ def parse_records(records):
     for record in records.raw_rows:
         records.keys.append(record[decision_index])
         formatted_record = []
-        value_index = 0
+        value_index = -1
         for value in record:
+            value_index += 1
             if value_index == decision_index:
                 continue
             number_value = float(value)
             formatted_record.append(number_value)
-            value_index += 1
+
 
         records.rows.append(formatted_record)
 
@@ -100,7 +101,10 @@ def setup_train_sets(records):
     return train_sets
 
 
-
+def get_distance_calculator(param):
+    if param == 'euclides':
+        return EuclideanDistanceCalculator()
+    return ManhattanDistanceCalculator()
 
 
 def main():
@@ -108,9 +112,10 @@ def main():
     records = parse_csv(default_setting["file"])
     parse_records(records)
     data_sets = setup_train_sets(records)
-    knn = Knn(data_sets, records, default_setting["k"])
+    distance_calculator = get_distance_calculator(default_setting["metric"])
+    knn = Knn(data_sets, records, default_setting["k"], distance_calculator)
     knn.test()
-    print('records count: ' + str(len(records.raw_rows)) + ' row length: ' + str(records.column_numbers))
+    print('records count: ' + str(len(records.raw_rows)) + ' columns length: ' + str(records.column_numbers))
 
 
 def is_number(n):
