@@ -36,13 +36,14 @@ class Knn:
             best_answer = self.look_for_best_answer(answer_dict)
             if best_answer == real_answer:
                 valid_test = valid_test + 1
-            print('| ' + best_answer + ' | ' + real_answer + " |")
+            # print('| ' + best_answer + ' | ' + real_answer + " |")
             # print('find: ' + best_answer + ' real: ' + real_answer)
         accuracy = float(valid_test) / len(self.data_sets[1]) * 100
         wrong = len(self.data_sets[1]) - valid_test
         print('-------------------------------------------------------------')
-        print('| Teaching set: ' + str(len(self.data_sets[0])) + ' | Training set: ' + str(len(self.data_sets[1])) + " |")
+        print('| Training set: ' + str(len(self.data_sets[0])) + ' | Testing set: ' + str(len(self.data_sets[1])) + " |")
         print('| OK: ' + str(valid_test) + ' | Fail: ' + str(wrong) + ' | accuracy: ' + str(accuracy) + ' % |')
+        return accuracy
 
 
 
