@@ -12,23 +12,13 @@ def distance_euclidean(a, b):
 
 
 def distance_manhattan(a, b):
-    n = len(a)
-    return distancesum(a, n) + distancesum(b, n)
+    distance = 0.0
+    for columnNumber in range(len(a)):
+        diff = float(a[columnNumber]) - float(b[columnNumber])
+        distance = distance + abs(diff)
 
-
-def distancesum(arr, n):
-    # sorting the array.
-    arr.sort()
-
-    # for each point, finding
-    # the distance.
-    res = 0
-    sum = 0
-    for i in range(n):
-        res += (arr[i] * i - sum)
-        sum += arr[i]
-
-    return res
+    distance = math.sqrt(distance)
+    return distance
 
 
 class EuclideanDistanceCalculator:
