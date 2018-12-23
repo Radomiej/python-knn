@@ -22,6 +22,9 @@ class KnnAdapter:
         data_sets = self.setup_train_sets(records)
         distance_calculator = self.get_distance_calculator(self.config["metric"])
 
+        print('K : ' + str(self.config['k']))
+        print('--------------------')
+
         accuracy_total = 0.0
         iteration = 0
         while len(data_sets) >= 2:
@@ -115,7 +118,7 @@ class KnnAdapter:
 
     def cut_list(self, record_keys, iteration):
         cut_size = int(len(record_keys) / iteration)
-        print('cut_size: ' + str(cut_size))
+        print('Cross test set size: ' + str(cut_size))
 
         results = []
         for i in range(iteration):

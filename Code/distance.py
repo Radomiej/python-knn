@@ -1,9 +1,14 @@
-import numpy
+import math
 
 
 def distance_euclidean(a, b):
-    dist = numpy.linalg.norm(a - b)
-    return dist
+    distance = 0.0
+    for columnNumber in range(len(a)):
+        diff = float(a[columnNumber]) - float(b[columnNumber])
+        distance = distance + diff * diff
+
+    distance = math.sqrt(distance)
+    return distance
 
 
 def distance_manhattan(a, b):
@@ -33,4 +38,4 @@ class EuclideanDistanceCalculator:
 
 class ManhattanDistanceCalculator:
     def calculate_distance(self, a, b):
-        return distance_euclidean(a, b)
+        return distance_manhattan(a, b)

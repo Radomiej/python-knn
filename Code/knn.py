@@ -4,7 +4,8 @@ from Code.distance import *
 
 
 def get_position(record_row):
-    return numpy.matrix(record_row)
+    return record_row.copy()
+    # return numpy.matrix(record_row)
 
 
 class Knn:
