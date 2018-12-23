@@ -1,12 +1,5 @@
 import sys
 
-from Code.distance import *
-
-
-def get_position(record_row):
-    return record_row.copy()
-    # return numpy.matrix(record_row)
-
 
 class Knn:
     # 0: train set
@@ -42,15 +35,14 @@ class Knn:
         accuracy = float(valid_test) / len(self.data_sets[1]) * 100
         wrong = len(self.data_sets[1]) - valid_test
         print('-------------------------------------------------------------')
-        print('| Training set: ' + str(len(self.data_sets[0])) + ' | Testing set: ' + str(len(self.data_sets[1])) + " |")
+        print(
+            '| Training set: ' + str(len(self.data_sets[0])) + ' | Testing set: ' + str(len(self.data_sets[1])) + " |")
         print('| OK: ' + str(valid_test) + ' | Fail: ' + str(wrong) + ' | accuracy: ' + str(accuracy) + ' % |')
         return accuracy
 
-
-
     def find_answers(self, test_index):
         question_row = self.records.rows[test_index]
-        question_position = get_position(question_row)
+        question_position = self.get_position(question_row)
         neighboards_list = self.data_sets[0].copy()
         answers_list = []
         for i in range(self.neighbours_number):
@@ -67,7 +59,7 @@ class Knn:
         list_index = 0
         for neighboard_index in neighboards_list:
             neighboard = self.records.rows[neighboard_index]
-            neighboard_position = get_position(neighboard)
+            neighboard_position = self.get_position(neighboard)
             # distance_current = distance_euclidean(question_position, neighboard_position)
             distance_current = self.distance_calculator.calculate_distance(question_position, neighboard_position)
             if distance_current < nearest_distance:
@@ -77,7 +69,8 @@ class Knn:
 
         return nearest_neighboard
 
-    def look_for_best_answer(self, answers_dict):
+    @staticmethod
+    def look_for_best_answer(answers_dict):
         best_answer = None
         best_count = 0
         for answer_key in answers_dict:
@@ -86,3 +79,7 @@ class Knn:
                 best_answer = answer_key
 
         return best_answer
+
+    @staticmethod
+    def get_position(record_row):
+        return record_row.copy()

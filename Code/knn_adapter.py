@@ -1,4 +1,6 @@
 import random
+
+from Code.distance import *
 from Code.records import *
 from Code.knn import *
 
@@ -43,8 +45,8 @@ class KnnAdapter:
         accuracy_total = accuracy_total / iteration
         print('FINAL ACCURACY : ' + str(accuracy_total) + " %")
 
-
-    def parse_csv(self, file):
+    @staticmethod
+    def parse_csv(file):
         records_result = Records()
         with open(file, 'r') as my_file:
             data = my_file.read()
@@ -85,7 +87,8 @@ class KnnAdapter:
         records.rows_length = len(records.keys)
         pass
 
-    def split_list(self, a_list, split_index):
+    @staticmethod
+    def split_list(a_list, split_index):
         return a_list[:split_index], a_list[split_index:]
 
     def setup_train_sets(self, records):
@@ -111,12 +114,14 @@ class KnnAdapter:
         # print('test set: ' + str(len(train_sets[1])))
         return train_sets
 
-    def get_distance_calculator(self, param):
+    @staticmethod
+    def get_distance_calculator(param):
         if param == 'euclides':
             return EuclideanDistanceCalculator()
         return ManhattanDistanceCalculator()
 
-    def cut_list(self, record_keys, iteration):
+    @staticmethod
+    def cut_list(record_keys, iteration):
         cut_size = int(len(record_keys) / iteration)
         print('Cross test set size: ' + str(cut_size))
 
@@ -131,4 +136,3 @@ class KnnAdapter:
             results.append(cut_part)
 
         return results
-

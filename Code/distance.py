@@ -22,10 +22,12 @@ def distance_manhattan(a, b):
 
 
 class EuclideanDistanceCalculator:
-    def calculate_distance(self, a, b):
+    @staticmethod
+    def calculate_distance(a, b):
         return distance_euclidean(a, b)
 
 
 class ManhattanDistanceCalculator:
-    def calculate_distance(self, a, b):
+    @staticmethod
+    def calculate_distance(a, b):
         return distance_manhattan(a, b)
