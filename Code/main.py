@@ -21,20 +21,18 @@ def parse_arguments():
     parser.add_argument("--train", type=str, default='train',
                         help='Testing category: train(default), split, cross')
     parser.add_argument("--percentage_split", type=float, default=0.25, help='Percentage split: (0,1) where 1 == 100%')
-    parser.add_argument("--cross_iteration", type=int, help='Cross iteration count also indicate how many part of set '
-                                                            'will be use like training and test data')
+    parser.add_argument("--cross_iteration", type=int, default=5,
+                        help='Cross iteration count also indicate how many part of set will be use like training and test data')
     parser.add_argument("--decision_index", type=int, required=True, help='Index of column with decisions')
     parser.add_argument("--file", type=str, required=True, help='File with data', )
     args = parser.parse_args()
     command_setting['k'] = int(args.k)
     command_setting['metric'] = args.metric
     command_setting['train'] = args.train
+    command_setting['percentage_split'] = args.percentage_split
+    command_setting['cross_iteration'] = args.cross_iteration
     command_setting['decision_index'] = int(args.decision_index)
     command_setting['file'] = args.file
-    if args.percentage_split is not None:
-        command_setting['percentage_split'] = args.percentage_split
-    if args.cross_iteration is not None:
-        command_setting['cross_iteration'] = args.cross_iteration
 
 
 def main():
