@@ -77,6 +77,7 @@ class Knn:
             answer_value = answers_dict[answer_key]
             if answer_value > best_count:
                 best_answer = answer_key
+                best_count = answer_value
 
         return best_answer
 
